@@ -11,39 +11,23 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
-    ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->api(prepend: [
-            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-        ]);
+      ->withMiddleware(function (Middleware $middleware): void {
 
+        /**
+         * Global middleware (runs BEFORE auth & JWT)
+         */
+        $middleware->append(\App\Http\Middleware\CorsMiddleware::class);
+
+        /**
+         * Route middleware aliases
+         */
         $middleware->alias([
             'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,
             'role'     => \App\Http\Middleware\CheckRole::class,
         ]);
-
-        //
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
-    })->create();
+        // Leave CORS handling to middleware only
+    })
+    ->create();
 
-
-    //   ->withMiddleware(function (Middleware $middleware): void {
-
-    //     /**
-    //      * Global middleware (runs BEFORE auth & JWT)
-    //      */
-    //     $middleware->append(\App\Http\Middleware\CorsMiddleware::class);
-
-    //     /**
-    //      * Route middleware aliases
-    //      */
-    //     $middleware->alias([
-    //         'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,
-    //         'role'     => \App\Http\Middleware\RoleMiddleware::class,
-    //     ]);
-    // })
-    // ->withExceptions(function (Exceptions $exceptions): void {
-    //     // Leave CORS handling to middleware only
-    // })
-    // ->create();
