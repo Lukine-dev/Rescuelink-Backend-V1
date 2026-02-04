@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: laravel12-app
+    env: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
+
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: SUPABASE_DB_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+
+    postDeployCommand: |
+      cd /var/www/html
+      php artisan config:clear
+      php artisan cache:clear
+      php artisan route:clear
