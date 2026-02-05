@@ -29,7 +29,7 @@ class AuthController extends Controller
             'ext_name' => 'nullable|string|max:255',
             'username' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
-            'user_phone_number' => 'required|string|email|max:11|unique:users',
+            'user_phone_number' => 'required|string|max:11|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'role' => 'sometimes|in:user,responder,admin,superadmin'
         ]);
