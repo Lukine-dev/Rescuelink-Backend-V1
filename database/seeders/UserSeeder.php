@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
                 'ext_name' => null,
                 'username' => 'juan_cruz',
                 'email' => 'juan.cruz@example.com',
+                'user_phone_number' => '09999999111',
                 'password' => 'User123!',
             ],
             [
@@ -31,6 +32,7 @@ class UserSeeder extends Seeder
                 'ext_name' => null,
                 'username' => 'maria_reyes',
                 'email' => 'maria.reyes@example.com',
+                'user_phone_number' => '09999999112',
                 'password' => 'User123!',
             ],
             [
@@ -40,6 +42,7 @@ class UserSeeder extends Seeder
                 'ext_name' => 'Jr.',
                 'username' => 'pedro_gonzales',
                 'email' => 'pedro.gonzales@example.com',
+                'user_phone_number' => '09999999113',
                 'password' => 'User123!',
             ],
             [
@@ -49,6 +52,7 @@ class UserSeeder extends Seeder
                 'ext_name' => null,
                 'username' => 'ana_lopez',
                 'email' => 'ana.lopez@example.com',
+                'user_phone_number' => '09999999114',
                 'password' => 'User123!',
             ],
             [
@@ -58,6 +62,7 @@ class UserSeeder extends Seeder
                 'ext_name' => null,
                 'username' => 'luis_santos',
                 'email' => 'luis.santos@example.com',
+                'user_phone_number' => '09999999115',
                 'password' => 'User123!',
             ],
             [
@@ -67,6 +72,7 @@ class UserSeeder extends Seeder
                 'ext_name' => null,
                 'username' => 'sophia_martinez',
                 'email' => 'sophia.martinez@example.com',
+                'user_phone_number' => '09999999116',
                 'password' => 'User123!',
             ],
             [
@@ -76,6 +82,7 @@ class UserSeeder extends Seeder
                 'ext_name' => null,
                 'username' => 'james_wilson',
                 'email' => 'james.wilson@example.com',
+                'user_phone_number' => '09999999117',
                 'password' => 'User123!',
             ],
             [
@@ -85,6 +92,7 @@ class UserSeeder extends Seeder
                 'ext_name' => null,
                 'username' => 'emma_taylor',
                 'email' => 'emma.taylor@example.com',
+                'user_phone_number' => '09999999118',
                 'password' => 'User123!',
             ],
             [
@@ -94,6 +102,7 @@ class UserSeeder extends Seeder
                 'ext_name' => null,
                 'username' => 'daniel_anderson',
                 'email' => 'daniel.anderson@example.com',
+                'user_phone_number' => '09999999119',
                 'password' => 'User123!',
             ],
             [
@@ -103,6 +112,7 @@ class UserSeeder extends Seeder
                 'ext_name' => null,
                 'username' => 'olivia_thomas',
                 'email' => 'olivia.thomas@example.com',
+                'user_phone_number' => '09999999120',
                 'password' => 'User123!',
             ],
         ];
@@ -118,6 +128,7 @@ class UserSeeder extends Seeder
                     'username' => $user['username'],
                     'email' => $user['email'],
                     'email_verified_at' => now(),
+                    'user_phone_number' => $user['user_phone_number'],
                     'password' => Hash::make($user['password']),
                     'role' => 'user',
                     'remember_token' => Str::random(10),

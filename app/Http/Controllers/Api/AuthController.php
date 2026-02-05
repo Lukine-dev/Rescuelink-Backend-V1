@@ -48,7 +48,8 @@ class AuthController extends Controller
 
         $token = JWTAuth::fromUser($user);
 
-        return $this->respondWithToken($token);
+        // ✅ PASS THE USER EXPLICITLY
+        return $this->respondWithToken($token, $user);
     }
 
     // ==============================
@@ -523,10 +524,14 @@ class AuthController extends Controller
     // ==============================
     // Standard JWT response format
     // ==============================
-    protected function respondWithToken($token)
+    protected function respondWithToken($token, $user = null)
     {
-        $user = auth()->user();
-        
+        if (!$user) {
+            return response()->json([
+                'error' => 'User context missing'
+            ], 500);
+        }
+
         $userData = [
             'id' => $user->id,
             'first_name' => $user->first_name,
@@ -538,12 +543,11 @@ class AuthController extends Controller
             'user_phone_number' => $user->user_phone_number,
             'role' => $user->role,
         ];
-        
-        // Load relationships if they exist
+
         if (method_exists($user, 'emergencyContacts')) {
             $userData['emergency_contacts'] = $user->emergencyContacts;
         }
-        
+
         if (method_exists($user, 'responder')) {
             $userData['responder'] = $user->responder;
         }

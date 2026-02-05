@@ -22,6 +22,7 @@ class ResponderSeeder extends Seeder
                 'ext_name' => 'Jr.',
                 'username' => 'john_responder',
                 'email' => 'john.responder@rescuelink.com',
+                'user_phone_number' => '09999999911',
                 'password' => 'Responder123!',
             ],
             [
@@ -31,6 +32,7 @@ class ResponderSeeder extends Seeder
                 'ext_name' => null,
                 'username' => 'maria_medic',
                 'email' => 'maria.medic@rescuelink.com',
+                'user_phone_number' => '09999999912',
                 'password' => 'Responder123!',
             ],
             [
@@ -40,6 +42,7 @@ class ResponderSeeder extends Seeder
                 'ext_name' => 'III',
                 'username' => 'robert_rescuer',
                 'email' => 'robert.rescuer@rescuelink.com',
+                'user_phone_number' => '09999999913',
                 'password' => 'Responder123!',
             ],
             [
@@ -49,6 +52,7 @@ class ResponderSeeder extends Seeder
                 'ext_name' => null,
                 'username' => 'sarah_paramedic',
                 'email' => 'sarah.paramedic@rescuelink.com',
+                'user_phone_number' => '09999999914',
                 'password' => 'Responder123!',
             ],
             [
@@ -58,6 +62,7 @@ class ResponderSeeder extends Seeder
                 'ext_name' => null,
                 'username' => 'michael_driver',
                 'email' => 'michael.driver@rescuelink.com',
+                'user_phone_number' => '09999999915',
                 'password' => 'Responder123!',
             ],
         ];
@@ -73,6 +78,7 @@ class ResponderSeeder extends Seeder
                     'username' => $responder['username'],
                     'email' => $responder['email'],
                     'email_verified_at' => now(),
+                    'user_phone_number' => $responder['user_phone_number'],
                     'password' => Hash::make($responder['password']),
                     'role' => 'responder',
                     'remember_token' => Str::random(10),

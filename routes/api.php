@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\VehicleController;
 use App\Http\Controllers\Api\EmergencyContactController;
 use App\Http\Controllers\Api\AuditLogController;
 use App\Http\Controllers\Api\NotificationController;
+use App\Http\Controllers\Api\SosController;
 
 Route::get('/test', function () {
     return response()->json([
@@ -68,6 +69,10 @@ Route::prefix('v1')->group(function () {
         Route::get('/notifications', [NotificationController::class, 'index']);
         Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
         Route::post('/notifications/read-all', [NotificationController::class, 'markAllAsRead']);
+
+        // Manual SOS Alerts
+        Route::post('/sos', [SosController::class, 'store']);
+        Route::get('/sos', [SosController::class, 'index']);
     });
 
 });

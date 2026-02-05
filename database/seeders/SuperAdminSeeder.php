@@ -24,7 +24,8 @@ class SuperAdminSeeder extends Seeder
                 'username' => 'superadmin',
                 'email' => 'superadmin@rescuelink.com',
                 'email_verified_at' => now(),
-                'password' => Hash::make('SuperAdmin@123'), // Strong password
+                'user_phone_number' => '09999999999',
+                'password' => Hash::make('password'), // Strong password
                 'role' => 'superadmin',
                 'remember_token' => Str::random(10),
             ]);
