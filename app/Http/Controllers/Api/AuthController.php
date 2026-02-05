@@ -29,6 +29,7 @@ class AuthController extends Controller
             'ext_name' => 'nullable|string|max:255',
             'username' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
+            'user_phone_number' => 'required|string|email|max:11|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'role' => 'sometimes|in:user,responder,admin,superadmin'
         ]);
@@ -40,6 +41,7 @@ class AuthController extends Controller
             'ext_name' => $request->ext_name,
             'username' => $request->username,
             'email' => $request->email,
+            'user_phone_number'=> $request->user_phone_number,
             'password' => Hash::make($request->password),
             'role' => $request->role ?? 'user',
         ]);
@@ -70,6 +72,7 @@ class AuthController extends Controller
             'ext_name' => 'nullable|string|max:255',
             'username' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
+            'user_phone_number' => 'required|string|email|max:11|unique:users',
             'password' => [
                 'required',
                 'string',
@@ -93,6 +96,7 @@ class AuthController extends Controller
             'ext_name' => $request->ext_name,
             'username' => $request->username,
             'email' => $request->email,
+            'user_phone_number'=> $request->user_phone_number,
             'password' => Hash::make($request->password),
             'role' => $request->role,
             'email_verified_at' => now(), // Auto-verify for admin-created accounts
@@ -114,6 +118,7 @@ class AuthController extends Controller
                 'ext_name' => $user->ext_name,
                 'username' => $user->username,
                 'email' => $user->email,
+                'user_phone_number'=> $user->user_phone_number,
                 'role' => $user->role,
                 'created_at' => $user->created_at,
             ]
@@ -265,7 +270,7 @@ class AuthController extends Controller
         }
 
         $perPage = $request->per_page ?? 15;
-        $users = User::select(['id', 'first_name', 'middle_name', 'last_name', 'ext_name', 'username', 'email', 'role', 'created_at', 'updated_at'])
+        $users = User::select(['id', 'first_name', 'middle_name', 'last_name', 'ext_name', 'username', 'email','user_phone_number', 'role', 'created_at', 'updated_at'])
                     ->orderBy('created_at', 'desc')
                     ->paginate($perPage);
 
@@ -419,6 +424,7 @@ class AuthController extends Controller
             'ext_name' => $user->ext_name,
             'username' => $user->username,
             'email' => $user->email,
+            'user_phone_number' => $user->user_phone_number,
             'role' => $user->role,
         ];
         
@@ -448,6 +454,7 @@ class AuthController extends Controller
             'ext_name' => $user->ext_name,
             'username' => $user->username,
             'email' => $user->email,
+            'user_phone_number' => $user->user_phone_number,
             'role' => $user->role,
         ]);
     }
@@ -502,6 +509,7 @@ class AuthController extends Controller
                     'ext_name' => $user->ext_name,
                     'username' => $user->username,
                     'email' => $user->email,
+                    'user_phone_number' => $user->user_phone_number,
                     'role' => $user->role,
                 ],
             ]);
@@ -527,6 +535,7 @@ class AuthController extends Controller
             'ext_name' => $user->ext_name,
             'username' => $user->username,
             'email' => $user->email,
+            'user_phone_number' => $user->user_phone_number,
             'role' => $user->role,
         ];
         

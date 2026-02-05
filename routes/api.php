@@ -20,15 +20,15 @@ Route::get('/test', function () {
 Route::prefix('v1')->group(function () {
 
     // Public routes
-    Route::post('/register', [AuthController::class, 'register']);
-    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/auth/register', [AuthController::class, 'register']);
+    Route::post('/auth/login', [AuthController::class, 'login']);
 
     // Protected routes
     Route::middleware('auth:api')->group(function () {
         // Auth
-        Route::post('/logout', [AuthController::class, 'logout']);
-        Route::post('/refresh', [AuthController::class, 'refresh']);
-        Route::get('/profile', [AuthController::class, 'profile']);
+        Route::post('/auth/logout', [AuthController::class, 'logout']);
+        Route::post('/auth/refresh', [AuthController::class, 'refresh']);
+        Route::get('/auth/profile', [AuthController::class, 'profile']);
 
         // Accidents
         Route::apiResource('accidents', AccidentController::class);
