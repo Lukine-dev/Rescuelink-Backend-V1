@@ -33,7 +33,7 @@ class SuperAdminSeeder extends Seeder
             $this->command->info("SuperAdmin created:");
             $this->command->info("Username: superadmin");
             $this->command->info("Email: superadmin@rescuelink.com");
-            $this->command->info("Password: SuperAdmin@123");
+            $this->command->info("Password: password");
         } else {
             $this->command->info("SuperAdmin already exists. Skipping...");
         }

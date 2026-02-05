@@ -406,7 +406,10 @@ class AuthController extends Controller
             return response()->json(['error' => 'Invalid credentials'], 401);
         }
 
-        return $this->respondWithToken($token);
+        // ✅ Manually resolve the user
+        $user = JWTAuth::user();
+
+        return $this->respondWithToken($token, $user);
     }
 
     // ==============================
@@ -476,19 +479,19 @@ class AuthController extends Controller
     // ==============================
     // Refresh JWT token
     // ==============================
-    public function refresh()
+        public function refresh()
     {
         try {
             $token = JWTAuth::refresh();
+            $user = JWTAuth::user();
         } catch (\Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
             return response()->json(['error' => 'Token expired, login again'], 401);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Unable to refresh token'], 401);
         }
 
-        return $this->respondWithToken($token);
+        return $this->respondWithToken($token, $user);
     }
-
     // ==============================
     // Check token validity
     // ==============================
@@ -524,39 +527,31 @@ class AuthController extends Controller
     // ==============================
     // Standard JWT response format
     // ==============================
-    protected function respondWithToken($token, $user = null)
+        protected function respondWithToken($token, $user = null)
     {
         if (!$user) {
-            return response()->json([
-                'error' => 'User context missing'
-            ], 500);
-        }
-
-        $userData = [
-            'id' => $user->id,
-            'first_name' => $user->first_name,
-            'middle_name' => $user->middle_name,
-            'last_name' => $user->last_name,
-            'ext_name' => $user->ext_name,
-            'username' => $user->username,
-            'email' => $user->email,
-            'user_phone_number' => $user->user_phone_number,
-            'role' => $user->role,
-        ];
-
-        if (method_exists($user, 'emergencyContacts')) {
-            $userData['emergency_contacts'] = $user->emergencyContacts;
-        }
-
-        if (method_exists($user, 'responder')) {
-            $userData['responder'] = $user->responder;
+            try {
+                $user = JWTAuth::setToken($token)->toUser();
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'User context missing'], 500);
+            }
         }
 
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => config('jwt.ttl') * 60,
-            'user' => $userData,
+            'user' => [
+                'id' => $user->id,
+                'first_name' => $user->first_name,
+                'middle_name' => $user->middle_name,
+                'last_name' => $user->last_name,
+                'ext_name' => $user->ext_name,
+                'username' => $user->username,
+                'email' => $user->email,
+                'user_phone_number' => $user->user_phone_number,
+                'role' => $user->role,
+            ],
         ]);
     }
 }
